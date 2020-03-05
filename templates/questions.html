@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}
+    <title>Quora-Questions</title>
+{% endblock title %}  
+
+{% block content %}
+<nav class="nav">
+  <a class="nav-link" href="{% url 'index' %}">Questions</a>
+  <a class="nav-link" href="{% url 'user_login' %}">Logout</a>
+</nav>
+<div class="container">
+<h1>Would You Like to Add a Question?</h1>
+<form method="POST">
+    {% csrf_token %}
+    <textarea name="question"></textarea><br>
+    <button type="submit" class="btn btn-primary" value="submit">Submit</button><hr>
+</form>
+{% if all_questions%}
+{% for ques in all_questions %}
+    <h1><a href="/{{ques.id}}/details">Question:{{ques.question}}</a></h1>
+    <p>Created by:{{ques.created_by}}</p>
+
+{% endfor %}
+{% else %}
+ <h1>No Questions Available</h1>
+{% endif %}
+</div>
+{% endblock content %}
